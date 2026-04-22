@@ -9,7 +9,7 @@ public class ProductController {
 
     private final ProductModel productModel;
 
-    @Autowired
+    @Autowired     //생성자 하나 있을 때, 생략 가능
     public ProductController(ProductModel productModel){
         System.out.println("Controller");
         System.out.println(productModel);
