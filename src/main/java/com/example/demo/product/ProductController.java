@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ProductController {
 
     @Autowired
-    private Product products;
+    private ProductModel products;
+
+    public ProductController(){
+        System.out.println("Controller");
+        System.out.println(products);
+    }
 
     //전체 상품 조회
     @GetMapping("/products")
