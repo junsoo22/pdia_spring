@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
 
-    private ProductModel productModel;
+    private final ProductModel productModel;
 
     @Autowired
     public ProductController(ProductModel productModel){
