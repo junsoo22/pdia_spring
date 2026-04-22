@@ -7,17 +7,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ProductController {
 
-    @Autowired
-    private ProductModel products;
+    private ProductModel productModel;
 
-    public ProductController(){
+    @Autowired
+    public ProductController(ProductModel productModel){
         System.out.println("Controller");
-        System.out.println(products);
+        System.out.println(productModel);
+        this.productModel=productModel;
     }
 
     //전체 상품 조회
     @GetMapping("/products")
     public String getProducts(){
-        return products.getProduct();
+        return productModel.getProduct();
     }
 }
