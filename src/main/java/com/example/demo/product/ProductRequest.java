@@ -16,4 +16,8 @@ public class ProductRequest {
         return price;
     }
 
+    public void setPrice(){
+        price=price/1450;
+    }
+
 }

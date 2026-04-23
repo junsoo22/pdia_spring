@@ -22,11 +22,13 @@ public class ProductModel {
     public List<String> getProducts() {
         return db.entrySet()
                 .stream()
-                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPrice())
+                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPrice()+"달러")
                 .toList();
     }
 
     public ProductRequest saveProduct(ProductRequest dto){
+        int price=dto.getPrice();
+        dto.setPrice();
         db.put(Id++,dto);
 
         return dto;
