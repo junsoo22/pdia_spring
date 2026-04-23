@@ -1,20 +1,28 @@
 package com.example.demo.product;
 
-
-import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
-import static java.lang.Thread.sleep;
+import java.util.HashMap;
+import java.util.Map;
 
-@Component     //new Product()로 객체 생성하지 말고 스프링이 객체 생성 해주도록
+@Component
 public class ProductModel {
 
+    //
+    private Map<Integer, String> db = new HashMap<>();
+    private int Id = 1;
 
     public ProductModel() {
         System.out.println("Model");
     }
 
     public String getProduct(){
-        return "sneakers";
+        return db.values().toString();
+    }
+
+    public String saveProduct(String name){
+        db.put(Id++,name);
+
+        return db.toString();
     }
 }
