@@ -2,7 +2,6 @@ package com.example.demo.product;
 
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +10,9 @@ import java.util.Map;
 public class ProductModel {
 
     //
-    private Map<Integer, String> db = new HashMap<>();
+    private Map<Integer, ProductRequest> db = new HashMap<>();
+
+
     private int Id = 1;
 
     public ProductModel() {
@@ -21,13 +22,13 @@ public class ProductModel {
     public List<String> getProducts() {
         return db.entrySet()
                 .stream()
-                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue())
+                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPrice())
                 .toList();
     }
 
-    public String saveProduct(String name){
-        db.put(Id++,name);
+    public ProductRequest saveProduct(ProductRequest dto){
+        db.put(Id++,dto);
 
-        return db.toString();
+        return dto;
     }
 }

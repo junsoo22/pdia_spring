@@ -23,8 +23,11 @@ public class ProductController {
         return productModel.getProducts();
     }
 
+
+    //1단계: 상품명, 상품 가격도 추가로 받음.
     @PostMapping("/products")
-    public String registerProduct(@RequestBody String name){
-        return productModel.saveProduct(name);
+    public ProductRequest registerProduct(@RequestBody ProductRequest request){
+        System.out.println("request = " + request);
+        return productModel.saveProduct(request);
     }
 }
