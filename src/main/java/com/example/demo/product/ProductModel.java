@@ -2,7 +2,9 @@ package com.example.demo.product;
 
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -16,8 +18,11 @@ public class ProductModel {
         System.out.println("Model");
     }
 
-    public String getProduct(){
-        return db.values().toString();
+    public List<String> getProducts() {
+        return db.entrySet()
+                .stream()
+                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue())
+                .toList();
     }
 
     public String saveProduct(String name){

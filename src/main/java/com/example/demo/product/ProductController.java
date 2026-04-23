@@ -3,6 +3,8 @@ package com.example.demo.product;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
 
@@ -17,8 +19,8 @@ public class ProductController {
 
     //전체 상품 조회
     @GetMapping("/products")
-    public String getProducts(){
-        return productModel.getProduct();
+    public List<String> getProducts(){
+        return productModel.getProducts();
     }
 
     @PostMapping("/products")
