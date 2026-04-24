@@ -1,12 +1,14 @@
 package com.example.demo.product;
 
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Component
+@Repository
 public class ProductRepository {
 
     //DB를 저장하고 꺼내주고 처리하는 책임.

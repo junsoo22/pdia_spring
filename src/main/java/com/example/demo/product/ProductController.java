@@ -33,6 +33,7 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product){
         logger.debug("product.name:{} ", product.getName());
         logger.debug("product.price:{}", product.getPrice());
+        logger.debug("product",product);
         return productService.saveProduct(product);
     }
 }

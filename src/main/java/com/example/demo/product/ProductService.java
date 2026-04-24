@@ -2,10 +2,12 @@ package com.example.demo.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Component
+@Service
 public class ProductService {
 
     //DB를 저장하고 꺼내주고 처리하는 책임.
