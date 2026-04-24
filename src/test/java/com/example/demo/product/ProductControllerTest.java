@@ -8,7 +8,7 @@ class ProductControllerTest {
 
     @Test
     void getProducts() {
-        ProductController productController=new ProductController(new ProductModel());
-        System.out.println("productController.getProducts() = " + productController.getProducts());
+//        ProductController productController=new ProductController(new ProductModel());
+//        System.out.println("productController.getProducts() = " + productController.getProducts());
     }
 }

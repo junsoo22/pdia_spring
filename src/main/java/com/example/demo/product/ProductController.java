@@ -10,20 +10,20 @@ import java.util.List;
 @RestController
 public class ProductController {
 
-    private final ProductModel productModel;
+    private final ProductService productService;
     private Logger logger = LoggerFactory.getLogger(ProductController.class);  // slf4j(Simple Logging Facade for Java) 인터페이스
 
     @Autowired     //생성자 하나 있을 때, 생략 가능
-    public ProductController(ProductModel productModel){
+    public ProductController(ProductService productModel){
         System.out.println("Controller");
         System.out.println(productModel);
-        this.productModel=productModel;
+        this.productService =productModel;
     }
 
     //전체 상품 조회
     @GetMapping("/products")
     public List<String> getProducts(){
-        return productModel.getProducts();
+        return productService.getProducts();
     }
 
 
@@ -33,6 +33,6 @@ public class ProductController {
     public Product addProduct(@RequestBody Product product){
         logger.debug("product.name:{} ", product.getName());
         logger.debug("product.price:{}", product.getPrice());
-        return productModel.saveProduct(product);
+        return productService.saveProduct(product);
     }
 }

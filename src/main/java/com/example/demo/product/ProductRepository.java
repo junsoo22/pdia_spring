@@ -7,16 +7,11 @@ import java.util.List;
 import java.util.Map;
 
 @Component
-public class ProductModel {
+public class ProductRepository {
 
-    //
+    //DB를 저장하고 꺼내주고 처리하는 책임.
     private Map<Integer, Product> db = new HashMap<>();
     private int Id = 1;
-    private final int exchangeRate=1450;
-
-    public ProductModel() {
-        System.out.println("Model");
-    }
 
     public List<String> getProducts() {
         return db.entrySet()
@@ -26,9 +21,9 @@ public class ProductModel {
     }
 
     public Product saveProduct(Product product){
-        product.setPriceByDollar(product.getPrice()/exchangeRate);
         db.put(Id++,product);
 
         return product;
     }
+
 }
