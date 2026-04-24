@@ -10,7 +10,7 @@ import java.util.Map;
 public class ProductModel {
 
     //
-    private Map<Integer, ProductRequest> db = new HashMap<>();
+    private Map<Integer, Product> db = new HashMap<>();
 
 
     private int Id = 1;
@@ -22,13 +22,11 @@ public class ProductModel {
     public List<String> getProducts() {
         return db.entrySet()
                 .stream()
-                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPrice()+"달러")
+                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().name+", 상품 가격: "+entry.getValue().price+"달러")
                 .toList();
     }
 
-    public ProductRequest saveProduct(ProductRequest dto){
-        int price=dto.getPrice();
-        dto.setPrice();
+    public Product saveProduct(Product dto){
         db.put(Id++,dto);
 
         return dto;

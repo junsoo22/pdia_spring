@@ -1,5 +1,7 @@
 package com.example.demo.product;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,6 +11,7 @@ import java.util.List;
 public class ProductController {
 
     private final ProductModel productModel;
+    private Logger logger = LoggerFactory.getLogger(ProductController.class);  // slf4j(Simple Logging Facade for Java) 인터페이스
 
     @Autowired     //생성자 하나 있을 때, 생략 가능
     public ProductController(ProductModel productModel){
@@ -27,8 +30,9 @@ public class ProductController {
     //1단계: 상품명, 상품 가격도 추가로 받음.
     //2단계: DB에 저장할 땐 달러로 바꿔서 저장되어야 한다. (환율 1달러 = 1450원)
     @PostMapping("/products")
-    public ProductRequest registerProduct(@RequestBody ProductRequest request){
-        System.out.println("request = " + request);
-        return productModel.saveProduct(request);
+    public Product addProduct(@RequestBody Product product){
+        logger.debug("product.name:{} ", product.name);
+        logger.debug("product.price:{}", product.price);
+        return productModel.saveProduct(product);
     }
 }
