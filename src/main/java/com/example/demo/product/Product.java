@@ -22,4 +22,12 @@ public class Product {
     public void setPrice(int price) {
         this.price = price;
     }
+
+    public int getPriceByDollar() {
+        return priceByDollar;
+    }
+
+    public void setPriceByDollar(int priceByDollar) {
+        this.priceByDollar = priceByDollar;
+    }
 }

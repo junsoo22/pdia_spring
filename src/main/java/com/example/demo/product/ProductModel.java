@@ -26,7 +26,7 @@ public class ProductModel {
     }
 
     public Product saveProduct(Product product){
-        int i = product.getPrice() / exchangeRate;
+        product.setPriceByDollar(product.getPrice()/exchangeRate);
         db.put(Id++,product);
 
         return product;
