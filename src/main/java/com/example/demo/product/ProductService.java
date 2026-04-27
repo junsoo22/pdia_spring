@@ -27,10 +27,23 @@ public class ProductService {
         return productRepository.getProducts();
     }
 
+    public void saveProduct(ProductDto productDto){
 
-    public Product saveProduct(Product product){
-        product.setPriceByDollar(product.getPrice()/exchangeRate);
+        //DTO: 이름, 원화,
+        //Entity: 이름, 원화, 달러
+        //1. Dto에 굳이 달러 계산을 해서 entity로 값을 줄 필요가 있나?
+        //DTO는 달러가 필요 없는데..
+//        productDto.setPriceByDollart(productDto.getPrice() / exchangeRate);
+
+        Product product = Product.builder().
+                name(productDto.getName())
+                .price(productDto.getPrice())
+                .priceByDollar(productDto.getPrice() / exchangeRate)
+                .build();
+
+        //2. Entity는 데이터 무결성 떄문이라ㅣ며
+        //연산 넣는 건 좀 부담스러움.
+        // Entity 밖에서 연산 다 해서, Entity 변환
         productRepository.saveProduct(product);
-        return product;
     }
 }

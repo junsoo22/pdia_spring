@@ -30,10 +30,9 @@ public class ProductController {
     //1단계: 상품명, 상품 가격도 추가로 받음.
     //2단계: DB에 저장할 땐 달러로 바꿔서 저장되어야 한다. (환율 1달러 = 1450원)
     @PostMapping("/products")
-    public Product addProduct(@RequestBody Product product){
-        logger.debug("product.name:{} ", product.getName());
-        logger.debug("product.price:{}", product.getPrice());
-        logger.debug("product",product);
-        return productService.saveProduct(product);
+    public void addProduct(@RequestBody ProductDto productDto){
+        logger.debug("product.name={} ", productDto.getName());
+        logger.debug("product.price={}", productDto.getPrice());
+        productService.saveProduct(productDto);
     }
 }

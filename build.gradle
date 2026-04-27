@@ -19,7 +19,9 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'// lombok 라이브러리
+	annotationProcessor 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
