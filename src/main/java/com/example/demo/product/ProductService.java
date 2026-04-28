@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Component
@@ -27,13 +28,15 @@ public class ProductService {
         return productRepository.getProducts();
     }
 
-    public void saveProduct(ProductDto productDto){
+    public void saveProduct(ProductRequestDto productDto){
 
         //DTO: 이름, 원화,
         //Entity: 이름, 원화, 달러
         //1. Dto에 굳이 달러 계산을 해서 entity로 값을 줄 필요가 있나?
         //DTO는 달러가 필요 없는데..
         productDto.setPriceByDollar(productDto.getPrice() / exchangeRate);
+        LocalDate today= LocalDate.now();
+        productDto.setCreatedAt(today);
 
         Product product = productDto.toEntity();
 
@@ -41,5 +44,11 @@ public class ProductService {
         //연산 넣는 건 좀 부담스러움.
         // Entity 밖에서 연산 다 해서, Entity 변환
         productRepository.saveProduct(product);
+    }
+
+    public ProductResponseDto getProduct(int productId) {
+        Product foundProduct = productRepository.getProduct(productId);
+
+        return ProductResponseDto.from(foundProduct);
     }
 }

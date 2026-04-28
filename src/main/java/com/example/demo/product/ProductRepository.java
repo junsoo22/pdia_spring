@@ -1,6 +1,5 @@
 package com.example.demo.product;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +19,7 @@ public class ProductRepository {
     public List<String> getProducts() {
         return db.entrySet()
                 .stream()
-                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPrice()+"원 /"+entry.getValue().getPriceByDollar()+" 달러")
+                .map(entry -> "상품 ID: " + entry.getKey() + ", 상품 이름: " + entry.getValue().getName()+", 상품 가격: "+entry.getValue().getPriceKRW()+"원 /"+entry.getValue().getPriceUSD()+" 달러")
                 .toList();
     }
 
@@ -28,4 +27,7 @@ public class ProductRepository {
         db.put(Id++,product);
     }
 
+    public Product getProduct(int productId){
+        return db.get(productId);
+    }
 }

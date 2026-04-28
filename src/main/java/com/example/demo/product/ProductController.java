@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/products")     //중복 url 빼기
 public class ProductController {
 
     private final ProductService productService;
@@ -21,16 +22,23 @@ public class ProductController {
     }
 
     //전체 상품 조회
-    @GetMapping("/products")
+    @GetMapping
     public List<String> getProducts(){
         return productService.getProducts();
+    }
+
+    //개별 상품 조회
+    @GetMapping("/{productId}")
+    public ProductResponseDto getProduct(@PathVariable int productId){
+        logger.info(productId+"");
+        return productService.getProduct(productId);
     }
 
 
     //1단계: 상품명, 상품 가격도 추가로 받음.
     //2단계: DB에 저장할 땐 달러로 바꿔서 저장되어야 한다. (환율 1달러 = 1450원)
-    @PostMapping("/products")
-    public void addProduct(@RequestBody ProductDto productDto){
+    @PostMapping
+    public void addProduct(@RequestBody ProductRequestDto productDto){
         logger.debug("product.name={} ", productDto.getName());
         logger.debug("product.price={}", productDto.getPrice());
         productService.saveProduct(productDto);
