@@ -12,14 +12,16 @@ public class ProductService {
 
     //DB를 저장하고 꺼내주고 처리하는 책임.
     private final ProductRepository productRepository;
+    private final ProductConverter productConverter;
 
     //데이터 연산
     private final int exchangeRate=1450;
 
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository, ProductConverter productConverter) {
         this.productRepository = productRepository;
+        this.productConverter=productConverter;
         System.out.println("Model");
     }
 
@@ -35,11 +37,7 @@ public class ProductService {
         //DTO는 달러가 필요 없는데..
 //        productDto.setPriceByDollart(productDto.getPrice() / exchangeRate);
 
-        Product product = Product.builder().
-                name(productDto.getName())
-                .price(productDto.getPrice())
-                .priceByDollar(productDto.getPrice() / exchangeRate)
-                .build();
+        Product product = productConverter.getProduct(productDto, exchangeRate);
 
         //2. Entity는 데이터 무결성 떄문이라ㅣ며
         //연산 넣는 건 좀 부담스러움.
