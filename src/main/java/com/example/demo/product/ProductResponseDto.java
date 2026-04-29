@@ -13,7 +13,7 @@ public class ProductResponseDto {
     private int price;          //원화 or 달러
     private String currency;    //"KRW" or "USD"
 
-    public static ProductResponseDto from(Product foundProduct,String lang){
+    public static ProductResponseDto from(Product foundProduct, String lang){
 
         if (lang.equals("ko")){
             return ProductResponseDto.builder()

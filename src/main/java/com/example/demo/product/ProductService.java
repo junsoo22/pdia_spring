@@ -1,6 +1,8 @@
 package com.example.demo.product;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -47,20 +49,18 @@ public class ProductService {
         return productRepository.saveProduct(product);
     }
 
-    public ProductResponseDto getProduct(int productId, String lang) {
+    public ProductResponseDto getProduct(int productId, String lang) throws EnumConstantNotPresentException {
         Product foundProduct = productRepository.getProduct(productId);
-//        String currency="";
-//        if (lang.equals("ko")){
-//            currency="KRW";
-//        }
-//        else{
-//            currency="USD";
-//        }
-//        return ProductResponseDto.from(foundProduct,currency);
 
-        ProductResponseDto responseDto
-                = ProductResponseDto.from(foundProduct, lang);
+        //Enum을 가지고 판단, Enum에 포함되었냐 안되었냐.
+        for (Language language:Language.values()){
+            if (language.getLangType().equals(lang)){
+                ProductResponseDto responseDto
+                        = ProductResponseDto.from(foundProduct, lang);
 
-        return responseDto;
+                return responseDto;
+            }
+        }
+        throw new IllegalArgumentException();
     }
 }
