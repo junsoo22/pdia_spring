@@ -28,7 +28,7 @@ public class ProductService {
         return productRepository.getProducts();
     }
 
-    public void saveProduct(ProductRequestDto productDto){
+    public ProductResponseDto saveProduct(ProductRequestDto productDto, String lang){
 
         //DTO: 이름, 원화,
         //Entity: 이름, 원화, 달러
@@ -44,6 +44,8 @@ public class ProductService {
         //연산 넣는 건 좀 부담스러움.
         // Entity 밖에서 연산 다 해서, Entity 변환
         productRepository.saveProduct(product);
+
+        return ProductResponseDto.from(product,lang);
     }
 
     public ProductResponseDto getProduct(int productId, String lang) {
