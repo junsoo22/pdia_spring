@@ -18,6 +18,4 @@ public class UserController {
         UserResponseDto userResponseDto=userService.signup(userRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
     }
-
-    @
 }
