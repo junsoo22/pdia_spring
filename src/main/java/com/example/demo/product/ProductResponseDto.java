@@ -10,16 +10,32 @@ public class ProductResponseDto {
 
     private int id;
     private String name;
-    private int priceKRW;
-    private int priceUSD;
+    private int price;          //원화 or 달러
+    private String currency;    //"KRW" or "USD"
 
-    public static ProductResponseDto from(Product foundProduct){
+    public static ProductResponseDto from(Product foundProduct,String lang){
 
-        return ProductResponseDto.builder().
-                id(foundProduct.getId())
+        if (lang.equals("ko")){
+            return ProductResponseDto.builder()
+                    .id(foundProduct.getId())
+                    .name(foundProduct.getName())
+                    .price(foundProduct.getPriceKRW())
+                    .currency("KRW")
+                    .build();
+        }
+
+        return ProductResponseDto.builder()
+                .id(foundProduct.getId())
                 .name(foundProduct.getName())
-                .priceKRW(foundProduct.getPriceKRW())
-                .priceUSD(foundProduct.getPriceUSD())
+                .price(foundProduct.getPriceUSD())
+                .currency("USD")
                 .build();
+
+//        return ProductResponseDto.builder().
+//                id(foundProduct.getId())
+//                .name(foundProduct.getName())
+//                .price(currency.equals("KRW") ? foundProduct.getPriceKRW(): foundProduct.getPriceUSD())
+//                .currency(currency)
+//                .build();
     }
 }

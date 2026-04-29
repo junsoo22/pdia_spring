@@ -46,9 +46,20 @@ public class ProductService {
         productRepository.saveProduct(product);
     }
 
-    public ProductResponseDto getProduct(int productId) {
+    public ProductResponseDto getProduct(int productId, String lang) {
         Product foundProduct = productRepository.getProduct(productId);
+//        String currency="";
+//        if (lang.equals("ko")){
+//            currency="KRW";
+//        }
+//        else{
+//            currency="USD";
+//        }
+//        return ProductResponseDto.from(foundProduct,currency);
 
-        return ProductResponseDto.from(foundProduct);
+        ProductResponseDto responseDto
+                = ProductResponseDto.from(foundProduct, lang);
+
+        return responseDto;
     }
 }
