@@ -3,6 +3,8 @@ package com.example.demo.product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -37,9 +39,10 @@ public class ProductController {
     //1단계: 상품명, 상품 가격도 추가로 받음.
     //2단계: DB에 저장할 땐 달러로 바꿔서 저장되어야 한다. (환율 1달러 = 1450원)
     @PostMapping
-    public void addProduct(@RequestBody ProductRequestDto productDto){
+    public ResponseEntity<String> addProduct(@RequestBody ProductRequestDto productDto){
         logger.debug("product.name={} ", productDto.getName());
         logger.debug("product.price={}", productDto.getPrice());
         productService.saveProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body("ok");
     }
 }

@@ -14,7 +14,7 @@ public class ProductRepository {
     //DB를 저장하고 꺼내주고 처리하는 책임.
     private Map<Integer, Product> db = new HashMap<>();
 
-    private int Id = 1;
+    private int id = 1;
 
     public List<String> getProducts() {
         return db.entrySet()
@@ -24,7 +24,8 @@ public class ProductRepository {
     }
 
     public void saveProduct(Product product){
-        db.put(Id++,product);
+        product.setId(id);
+        db.put(id++,product);
     }
 
     public Product getProduct(int productId){
