@@ -23,9 +23,11 @@ public class ProductRepository {
                 .toList();
     }
 
-    public void saveProduct(Product product){
+    public int saveProduct(Product product){
         product.setId(id);
         db.put(id++,product);
+
+        return db.get(id-1).getId();    //DB에서 id값 꺼내기
     }
 
     public Product getProduct(int productId){

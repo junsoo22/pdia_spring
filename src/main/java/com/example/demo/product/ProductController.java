@@ -39,11 +39,11 @@ public class ProductController {
     //1단계: 상품명, 상품 가격도 추가로 받음.
     //2단계: DB에 저장할 땐 달러로 바꿔서 저장되어야 한다. (환율 1달러 = 1450원)
     @PostMapping
-    public ResponseEntity<ProductResponseDto> addProduct(@RequestBody ProductRequestDto productDto, @PathVariable String lang){
+    public ResponseEntity<Integer> addProduct(@RequestBody ProductRequestDto productDto){
         //상품등록하면 FE 입장에서 받고 싶은 응답값 =>
         logger.debug("product.name={} ", productDto.getName());
         logger.debug("product.price={}", productDto.getPrice());
-        ProductResponseDto responseDto= productService.saveProduct(productDto, lang);
-        return ResponseEntity.status(HttpStatus.CREATED).body(responseDto);
+        int newProductId=productService.saveProduct(productDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newProductId);
     }
 }
