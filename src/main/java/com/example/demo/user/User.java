@@ -2,19 +2,17 @@ package com.example.demo.user;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 @Builder
 @Getter
 public class User {
 
-    private String id;
+    private String userId;
     private String password;
     private String name;
-    private String birth;
-    private String phoneNumber;
-
-
+    private Date birthDay;
+    private String contact;
+//    private Date createdAt;
 }

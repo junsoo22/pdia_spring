@@ -5,16 +5,14 @@ import lombok.Getter;
 
 @Getter
 @Builder
-public class UserResponseDto {
+public class UserSignupRes {
 
-    private String id;
+    private String userId;
     private String name;
 
-    public static UserResponseDto from(User user) {
-
-
-        return UserResponseDto.builder()
-                .id(user.getId())
+    public static UserSignupRes from(User user) {
+        return UserSignupRes.builder()
+                .userId(user.getUserId())
                 .name(user.getName())
                 .build();
     }

@@ -1,27 +1,25 @@
 package com.example.demo.user;
 
 
-import com.example.demo.product.Product;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
 
-@Repository
+
+@Component
 public class UserRepository {
 
     //DB를 저장하고 꺼내주고 처리하는 책임.
-    private Map<Integer, User> db = new HashMap<>();
+    private Map<String, User> db = new HashMap<>();
 
     private int id = 1;
 
+    public User save(User user) {
 
-    public UserResponseDto signup(User user) {
+        db.put(user.getUserId(),user);
 
-        db.put(id,user);
-        User saved=db.get(id++);
-
-        return UserResponseDto.from(saved);
+        return db.get(user.getUserId());
 
     }
 }
