@@ -1,8 +1,6 @@
 package com.example.demo.user;
 
-import com.example.demo.product.ProductController;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -22,7 +20,18 @@ public class UserController {
     @PostMapping("/signup")
     public ResponseEntity<UserSignupRes> signup(@RequestBody UserSignUpReq userSignUpReq){
         logger.info(userSignUpReq.toString());
-        UserSignupRes userResponseDto=userService.signup(userSignUpReq);
-        return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
+
+        if(isValidPassword(userSignUpReq)){
+            UserSignupRes userResponseDto=userService.signup(userSignUpReq);
+            return ResponseEntity.status(HttpStatus.CREATED).body(userResponseDto);
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
+
+    private static boolean isValidPassword(UserSignUpReq userSignUpReq) {
+        return userSignUpReq.getPassword().length() >= 8;
+    }
+
+
 }

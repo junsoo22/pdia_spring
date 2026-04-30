@@ -16,10 +16,8 @@ public class UserRepository {
     private int id = 1;
 
     public User save(User user) {
-
         db.put(user.getUserId(),user);
 
         return db.get(user.getUserId());
-
     }
 }
