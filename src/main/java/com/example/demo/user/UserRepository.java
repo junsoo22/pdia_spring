@@ -20,4 +20,8 @@ public class UserRepository {
 
         return db.get(user.getUserId());
     }
+
+    public boolean existByUserId(String userId) {
+        return db.containsKey(userId);
+    }
 }
