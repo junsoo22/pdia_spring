@@ -1,6 +1,8 @@
 package com.example.demo.user;
 
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
@@ -23,5 +25,12 @@ public class UserRepository {
 
     public boolean existByUserId(String userId) {
         return db.containsKey(userId);
+    }
+
+    public User findByUserId(String userId) {
+        if(existByUserId(userId)){
+            return db.get(userId);
+        }
+        throw new NullPointerException();
     }
 }

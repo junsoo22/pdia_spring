@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
 
-
     private Logger logger = LoggerFactory.getLogger(UserController.class);  // slf4j(Simple Logging Facade for Java) 인터페이스
     private final UserService userService;
 
@@ -29,9 +28,18 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
     }
 
+
+    /**
+     * Req: ID, PW
+     * Res: ID
+     */
+    @PostMapping("/login")
+    public ResponseEntity<String> login(@RequestBody UserLoginReq userLoginReq){
+        logger.info(userLoginReq.toString());
+        return ResponseEntity.status(HttpStatus.OK).body(userService.login(userLoginReq));
+    }
+
     private static boolean isValidPassword(UserSignUpReq userSignUpReq) {
         return userSignUpReq.getPassword().length() >= 8;
     }
-
-
 }

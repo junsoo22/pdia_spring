@@ -1,10 +1,10 @@
 package com.example.demo.user;
 
 import com.example.demo.exception.DuplicatedUserException;
+import com.example.demo.exception.UserNotFoundException;
+import com.example.demo.exception.WrongLoginRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 @Component
 @RequiredArgsConstructor
@@ -29,5 +29,27 @@ public class UserService {
 
     private boolean isDuplicatedUserId(UserSignUpReq userSignUpReq) {
         return userRepository.existByUserId(userSignUpReq.getUserId());
+    }
+
+    public String login(UserLoginReq userLoginReq) {
+        String userId = userLoginReq.getId();
+
+        try {
+            User loginUser = userRepository.findByUserId(userId);
+            if (isEquals(userLoginReq, loginUser)) {
+                return loginUser.getUserId();
+            }
+            else{
+                throw new WrongLoginRequestException("비밀번호 오류");
+            }
+        } catch (NullPointerException e) {
+            throw new UserNotFoundException("사용자 없음");
+        }
+
+
+    }
+
+    private static boolean isEquals(UserLoginReq userLoginReq, User loginUser) {
+        return userLoginReq.getPassword().equals(loginUser.getPassword());
     }
 }
