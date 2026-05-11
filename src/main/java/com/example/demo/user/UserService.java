@@ -18,6 +18,7 @@ public class UserService {
          * 1) 있으면(중복이면) ->
          * 2) 없으면 (중복 X) ->
          */
+
         if(isDuplicatedUserId(userSignUpReq)){      //중복이면
             throw new DuplicatedUserException("중복된 사용자");
         }
@@ -31,25 +32,35 @@ public class UserService {
         return userRepository.existByUserId(userSignUpReq.getUserId());
     }
 
+    /*
+    1. 아이디를 가진 유저를 찾는다.
+    2. 비밀번호가 맞는지 판단한다.
+    3. 로그인 시켜준다. (return userId)
+    => 각각 기능 하나다. 1,2번을 메서드화 한다.
+     */
     public String login(UserLoginReq userLoginReq) {
         String userId = userLoginReq.getId();
 
+        //1
+        User loginUser = findVerifiedUser(userId);
+
+        //2.
+        validatePassword(userLoginReq, loginUser);
+
+        return loginUser.getUserId();
+    }
+
+    private User findVerifiedUser(String userId) {
         try {
-            User loginUser = userRepository.findByUserId(userId);
-            if (isEquals(userLoginReq, loginUser)) {
-                return loginUser.getUserId();
-            }
-            else{
-                throw new WrongLoginRequestException("비밀번호 오류");
-            }
+            return userRepository.findByUserId(userId);
         } catch (NullPointerException e) {
             throw new UserNotFoundException("사용자 없음");
         }
-
-
     }
 
-    private static boolean isEquals(UserLoginReq userLoginReq, User loginUser) {
-        return userLoginReq.getPassword().equals(loginUser.getPassword());
+    private static void validatePassword(UserLoginReq userLoginReq, User loginUser) {
+        if (!userLoginReq.getPassword().equals(loginUser.getPassword())) {
+            throw new WrongLoginRequestException("비밀번호 오류");
+        }
     }
 }
