@@ -6,6 +6,8 @@ import com.example.demo.exception.WrongLoginRequestException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.Optional;
+
 @Component
 @RequiredArgsConstructor
 public class UserService {
@@ -42,20 +44,13 @@ public class UserService {
         String userId = userLoginReq.getId();
 
         //1
-        User loginUser = findVerifiedUser(userId);
+        User loginUser = userRepository.findByUserId(userId)
+                .orElseThrow(()->new UserNotFoundException("사용자 없음"));
 
         //2.
         validatePassword(userLoginReq, loginUser);
 
         return loginUser.getUserId();
-    }
-
-    private User findVerifiedUser(String userId) {
-        try {
-            return userRepository.findByUserId(userId);
-        } catch (NullPointerException e) {
-            throw new UserNotFoundException("사용자 없음");
-        }
     }
 
     private static void validatePassword(UserLoginReq userLoginReq, User loginUser) {

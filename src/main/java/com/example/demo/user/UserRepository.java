@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 
 @Component
@@ -27,10 +28,7 @@ public class UserRepository {
         return db.containsKey(userId);
     }
 
-    public User findByUserId(String userId) {
-        if(existByUserId(userId)){
-            return db.get(userId);
-        }
-        throw new NullPointerException();
+    public Optional<User> findByUserId(String userId) {
+        return Optional.ofNullable(db.get(userId));
     }
 }
